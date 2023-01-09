@@ -1,0 +1,107 @@
+﻿<Window x:Class="AssignmentTwo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AssignmentTwo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800" Background="BlueViolet">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/AssignmentTwo;component/css/MyStyle.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource myLable}"
+                    Content="GenID      " HorizontalAlignment="Left" x:Name="genLbl" />
+        <TextBox Grid.Row="0" Grid.Column="1"
+                    Height="23" x:Name="name" Width="150" Text="{Binding SelectedGenerator.Name,Mode=TwoWay}" IsEnabled="False"/>
+        <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource myLable}"
+                    Content="Interval   " HorizontalAlignment="Left" x:Name="intervalLbl" />
+        <TextBox Grid.Row="1" Grid.Column="1"
+                    Height="23" x:Name="intervalTxt" Width="150" Text="{Binding SelectedGenerator.Interval,Mode=TwoWay}" />
+        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource myLable}"
+                    Content="Operator " HorizontalAlignment="Left" x:Name="operatorLbl" />
+        <TextBox Grid.Row="2" Grid.Column="1"
+                    Height="23" x:Name="operatorTxt" Width="150" Text="{Binding SelectedGenerator.Operation,Mode=TwoWay}"  />
+        <Label Grid.Row="0" Grid.Column="2"  Margin="40,0,0,0" Style="{StaticResource myLable}"
+                    Content="ID      " HorizontalAlignment="Left" x:Name="idLbl" />
+        <TextBox Grid.Row="0" Grid.Column="3" 
+                    Height="23" x:Name="id" Width="150" Text="{Binding SelectedData.id, Mode=TwoWay}" IsEnabled="False"/>
+        <Label Grid.Row="1" Grid.Column="2" Margin="40,0,0,0" Style="{StaticResource myLable}"
+                    Content="Data  " HorizontalAlignment="Left" x:Name="dataLbl" />
+        <TextBox Grid.Row="1" Grid.Column="3"
+                    Height="23" x:Name="data" Width="150" Text="{Binding SelectedData.data,Mode=TwoWay}" />
+
+        <ListView  x:Name="UserGrid" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                       ItemsSource="{Binding Generators}" 
+                       SelectedItem="{Binding SelectedGenerator}"
+                   Style="{StaticResource myListView}"
+                       Margin="0,10,0,0" 
+                       Height="150">
+            <ListView.View  >
+                <GridView x:Name="grdTest" >
+                    <GridViewColumn Header="GenID" DisplayMemberBinding="{Binding Name}"  Width="50"/>
+                    <GridViewColumn Header="Interval" DisplayMemberBinding="{Binding Interval}"  Width="80" />
+                    <GridViewColumn Header="Operation" DisplayMemberBinding="{Binding Operation}" Width="100" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView  x:Name="DataGrid" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="0,0,0,0" 
+                   Style="{StaticResource myListView}"
+                       ItemsSource="{Binding Data}" 
+                       SelectedItem="{Binding SelectedData}"
+                       Height="150">
+            <ListView.View >
+                <GridView x:Name="DataTest" >
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id}"  Width="auto"/>
+                    <GridViewColumn Header="Data" DisplayMemberBinding="{Binding data}"  Width="auto"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <ListView Grid.Row="3"  Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2" Width="auto" 
+                      ItemsSource="{Binding DataResult}"
+                        Margin="0,15,0,0" 
+                       Style="{StaticResource myListView}"
+                       Height="auto">
+            <ListView.View >
+                <GridView x:Name="DataRes" >
+                    <GridViewColumn Header="Num" DisplayMemberBinding="{Binding id}"  Width="auto"/>
+                    <GridViewColumn Header="Data" DisplayMemberBinding="{Binding data}"  Width="auto"/>
+                </GridView>
+            </ListView.View >
+        </ListView>
+
+        <Button  Grid.Row="5" Grid.Column="4"   Style="{StaticResource myBtn}" Margin="10"
+            Width="120" Height="30" VerticalAlignment="Top" Command="{Binding ClickCommand}"  >Run Gen</Button>
+
+    </Grid>
+
+   
+</Window>
